@@ -1275,7 +1275,7 @@ public abstract class ContainerBase extends LifecycleMBeanBase
      * session timeouts.
      */
     protected void threadStart() {
-
+        log.info("启动容器管理线程");
         if (thread != null)
             return;
         if (backgroundProcessorDelay <= 0)
@@ -1338,6 +1338,7 @@ public abstract class ContainerBase extends LifecycleMBeanBase
 
         @Override
         public void run() {
+            log.info("加载context");
             Throwable t = null;
             String unexpectedDeathMessage = sm.getString(
                     "containerBase.backgroundProcess.unexpectedThreadDeath",

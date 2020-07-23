@@ -731,7 +731,8 @@ public final class Mapper {
      */
     private final void internalMap(CharChunk host, CharChunk uri,
             String version, MappingData mappingData) throws IOException {
-
+        //
+        log.info("这里去匹配context");
         if (mappingData.host != null) {
             // The legacy code (dating down at least to Tomcat 4.1) just
             // skipped all mapping work in this case. That behaviour has a risk

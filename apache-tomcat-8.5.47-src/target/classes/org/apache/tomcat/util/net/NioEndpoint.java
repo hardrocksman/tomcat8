@@ -265,6 +265,8 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
 
             // Create worker collection
             if ( getExecutor() == null ) {
+                log.info("execurt默认配置里面为空，所以默认这里都创建execute");
+                // 这里的execute应该指的就是work线程  真正去执行的处理
                 createExecutor();
             }
 

@@ -57,6 +57,7 @@ public abstract class AbstractProcessorLight implements Processor {
                     // release() which will recycle the processor (and input
                     // buffer) deleting any pipe-lined data. To avoid this,
                     // process it now.
+                    // 这里应该是去处理真正的request
                     state = service(socketWrapper);
                 }
             } else if (status == SocketEvent.OPEN_WRITE) {

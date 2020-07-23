@@ -66,6 +66,7 @@ public class ConnectorCreateRule extends Rule {
             setExecutor(con, ex);
         }
         String sslImplementationName = attributes.getValue("sslImplementationName");
+        log.info("sslImplementationName:" + sslImplementationName);
         if (sslImplementationName != null) {
             setSSLImplementationName(con, sslImplementationName);
         }
