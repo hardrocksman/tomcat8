@@ -63,10 +63,13 @@ public final class Bootstrap {
 
     static {
         // Will always be non-null
+        log.info("tomcat开始启动。。。。。。");
         String userDir = System.getProperty("user.dir");
+        log.info("获取系统参数userDir:" + userDir);
 
         // Home first
         String home = System.getProperty(Globals.CATALINA_HOME_PROP);
+        log.info("获取到的home参数:" + home);
         File homeFile = null;
 
         if (home != null) {
