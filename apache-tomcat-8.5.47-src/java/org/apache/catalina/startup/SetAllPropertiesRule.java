@@ -20,6 +20,8 @@ package org.apache.catalina.startup;
 
 import java.util.HashMap;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.digester.Rule;
 import org.xml.sax.Attributes;
@@ -30,12 +32,13 @@ import org.xml.sax.Attributes;
  * @author Remy Maucherat
  */
 public class SetAllPropertiesRule extends Rule {
-
+    private static final Log log = LogFactory.getLog(SetAllPropertiesRule.class);
 
     // ----------------------------------------------------------- Constructors
     public SetAllPropertiesRule() {}
 
     public SetAllPropertiesRule(String[] exclude) {
+        log.info("SetAllPropertiesRule");
         for (int i=0; i<exclude.length; i++ ) if (exclude[i]!=null) this.excludes.put(exclude[i],exclude[i]);
     }
 

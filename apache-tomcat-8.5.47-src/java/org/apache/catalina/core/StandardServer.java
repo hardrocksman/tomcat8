@@ -274,6 +274,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void setPort(int port) {
+        log.info("设置serevr端口");
         this.port = port;
     }
 
@@ -313,6 +314,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void setShutdown(String shutdown) {
+        log.info("设置server关闭命令");
         this.shutdown = shutdown;
     }
 
@@ -344,7 +346,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void addService(Service service) {
-
+        log.info("增加service");
         service.setServer(this);
 
         synchronized (servicesLock) {

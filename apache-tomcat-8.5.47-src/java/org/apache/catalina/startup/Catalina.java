@@ -273,6 +273,8 @@ public class Catalina {
     /**
      * Create and configure the Digester we will be using for startup.
      * @return the main digester to parse server.xml
+     *
+     * 具体可参考https://www.cnblogs.com/cenyu/p/11079144.html
      */
     protected Digester createStartDigester() {
         long t1=System.currentTimeMillis();
@@ -292,11 +294,16 @@ public class Catalina {
         digester.setUseContextClassLoader(true);
 
         // Configure the actions we will be using
+        // 该规则会将指定的Java类实例化，并将其放入对象栈。具体的Java类可由该规则在构造方法出啊如，
+        // 也可以通过当前处理XML节点的某个属性指定，属性名称通过构造方法传入。当end()方法调用时，该规则创建的对象将从栈中取出。
         digester.addObjectCreate("Server",
                                  "org.apache.catalina.core.StandardServer",
                                  "className");
+        // 当begin()方法调用时，Digester使用标准的Java Bean属性操作方法(setter)将当前XML节点的属性值设置到对象栈顶部的对象中
         digester.addSetProperties("Server");
         // TODO 此处setnext不懂啥意思
+        // Digester会找到位于栈顶部对象的下一个对象，并调用其指定的方法，同时将栈顶部对象作为参数传入，
+        // 用于设置父对象的子对象，以便在栈对象之间建立父子关系，从而形成对象树，方便引用。
         digester.addSetNext("Server",
                             "setServer",
                             "org.apache.catalina.Server");

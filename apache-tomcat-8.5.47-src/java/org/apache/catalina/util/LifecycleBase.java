@@ -89,6 +89,7 @@ public abstract class LifecycleBase implements Lifecycle {
      */
     @Override
     public void addLifecycleListener(LifecycleListener listener) {
+        log.info("增加监听：" + listener.getClass());
         lifecycleListeners.add(listener);
     }
 
