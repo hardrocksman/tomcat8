@@ -220,6 +220,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
     public void setGlobalNamingResources
         (NamingResourcesImpl globalNamingResources) {
 
+        log.info("根据解析到的server.xml里面的GlobalNamingResources开始解析");
         NamingResourcesImpl oldGlobalNamingResources =
             this.globalNamingResources;
         this.globalNamingResources = globalNamingResources;
@@ -274,7 +275,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void setPort(int port) {
-        log.info("设置serevr端口");
+        log.info("根据解析的server.xml设置serevr端口");
         this.port = port;
     }
 
@@ -314,7 +315,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void setShutdown(String shutdown) {
-        log.info("设置server关闭命令");
+        log.info("根据解析出来的server.xml里获取关闭命令");
         this.shutdown = shutdown;
     }
 
@@ -346,7 +347,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      */
     @Override
     public void addService(Service service) {
-        log.info("增加service");
+        log.info("增加service" + service.getName());
         service.setServer(this);
 
         synchronized (servicesLock) {

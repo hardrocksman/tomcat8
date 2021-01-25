@@ -72,6 +72,8 @@ public class Connector extends LifecycleMBeanBase  {
 
     public Connector(String protocol) {
         setProtocol(protocol);
+
+        log.info("------------------最终确定的protocolHandle处理类：" + getProtocol());
         // Instantiate protocol handler
         ProtocolHandler p = null;
         try {
@@ -578,7 +580,7 @@ public class Connector extends LifecycleMBeanBase  {
      */
     @Deprecated
     public void setProtocol(String protocol) {
-
+        log.info("-------------------------对应的protocol:" + protocol);
         boolean aprConnector = AprLifecycleListener.isAprAvailable() &&
                 AprLifecycleListener.getUseAprConnector();
         log.info("aprConnector:[{}]" + aprConnector);

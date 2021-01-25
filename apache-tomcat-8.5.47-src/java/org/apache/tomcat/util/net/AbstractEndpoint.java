@@ -890,6 +890,8 @@ public abstract class AbstractEndpoint<S> {
 
 
     public void createExecutor() {
+
+        getLog().info("=--------------------配置默认的线程池处理---------------");
         internalExecutor = true;
         TaskQueue taskqueue = new TaskQueue();
         TaskThreadFactory tf = new TaskThreadFactory(getName() + "-exec-", daemon, getThreadPriority());
@@ -1195,6 +1197,7 @@ public abstract class AbstractEndpoint<S> {
     }
 
     protected final void startAcceptorThreads() {
+        // 创建accept 线程组数量  1
         int count = getAcceptorThreadCount();
         acceptors = new Acceptor[count];
 

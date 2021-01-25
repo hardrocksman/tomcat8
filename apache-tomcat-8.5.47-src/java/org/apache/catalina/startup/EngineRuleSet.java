@@ -87,6 +87,8 @@ public class EngineRuleSet extends RuleSetBase {
                                  "org.apache.catalina.core.StandardEngine",
                                  "className");
         digester.addSetProperties(prefix + "Engine");
+
+        // TODO  这里没看懂看啥的？？？？？？？？？？？？？？？
         digester.addRule(prefix + "Engine",
                          new LifecycleListenerRule
                          ("org.apache.catalina.startup.EngineConfig",

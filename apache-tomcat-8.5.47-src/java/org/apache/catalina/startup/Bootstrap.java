@@ -361,7 +361,7 @@ public final class Bootstrap {
     public void start()
         throws Exception {
         if( catalinaDaemon==null ) init();
-
+        log.info("-----------------------开始调用start方法启动---------------------");
         Method method = catalinaDaemon.getClass().getMethod("start", (Class [] )null);
         method.invoke(catalinaDaemon, (Object [])null);
 
@@ -501,6 +501,7 @@ public final class Bootstrap {
                 args[args.length - 1] = "stop";
                 daemon.stop();
             } else if (command.equals("start")) {
+                log.info("先加把锁，");
                 daemon.setAwait(true);
                 daemon.load(args);
                 daemon.start();

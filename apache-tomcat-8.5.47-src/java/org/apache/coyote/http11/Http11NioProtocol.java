@@ -37,6 +37,7 @@ public class Http11NioProtocol extends AbstractHttp11JsseProtocol<NioChannel> {
 
     public Http11NioProtocol() {
         super(new NioEndpoint());
+        log.info("-----------------------初始化Http11NioProtocol   顺便初始化了一个NioEndPoint----------------------");
     }
 
 

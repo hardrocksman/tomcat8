@@ -121,6 +121,8 @@ public class StandardService extends LifecycleMBeanBase implements Service {
 
     @Override
     public void setContainer(Engine engine) {
+        log.info("设置整个engine到service");
+
         Engine oldEngine = this.engine;
         if (oldEngine != null) {
             oldEngine.setService(null);
@@ -527,7 +529,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
      */
     @Override
     protected void initInternal() throws LifecycleException {
-
+        log.info("-----------------------开始进行service的init------------------------");
         super.initInternal();
 
         if (engine != null) {
@@ -535,6 +537,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         }
 
         // Initialize any Executors
+        log.info("----------------------开始循环进行execute的init-----------------------");
         for (Executor executor : findExecutors()) {
             if (executor instanceof JmxEnabled) {
                 ((JmxEnabled) executor).setDomain(getDomain());
@@ -547,6 +550,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
 
         // Initialize our defined Connectors
         synchronized (connectorsLock) {
+            log.info("开始循环遍历connector的init");
             for (Connector connector : connectors) {
                 try {
                     connector.init();

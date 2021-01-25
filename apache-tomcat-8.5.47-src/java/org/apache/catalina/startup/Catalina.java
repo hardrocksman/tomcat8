@@ -176,6 +176,7 @@ public class Catalina {
     }
 
     public void setServer(Server server) {
+        log.info("一开始degiest push this 所以这里设置server");
         this.server = server;
     }
 
@@ -365,6 +366,7 @@ public class Catalina {
                 "addSslHostConfig",
                 "org.apache.tomcat.util.net.SSLHostConfig");
 
+        // -------------------------------------- 这一段应该暂时没有  默认没有配置 -------------------------------------------------------------
         digester.addRule("Server/Service/Connector/SSLHostConfig/Certificate",
                          new CertificateCreateRule());
         digester.addRule("Server/Service/Connector/SSLHostConfig/Certificate",
@@ -402,12 +404,18 @@ public class Catalina {
         digester.addSetNext("Server/Service/Connector/UpgradeProtocol",
                             "addUpgradeProtocol",
                             "org.apache.coyote.UpgradeProtocol");
+        // --------------------------------------------------------------------------------------------------------------------------------------
 
         // Add RuleSets for nested elements
         digester.addRuleSet(new NamingRuleSet("Server/GlobalNamingResources/"));
+
+        log.info("开始解析server service下面的Engine组件");
         digester.addRuleSet(new EngineRuleSet("Server/Service/"));
+        log.info("开始解析server Service下面的Host");
         digester.addRuleSet(new HostRuleSet("Server/Service/Engine/"));
+        log.info("开始解析server service Engine Host下面的Context组件");
         digester.addRuleSet(new ContextRuleSet("Server/Service/Engine/Host/"));
+
         addClusterRuleSet(digester, "Server/Service/Engine/Host/Cluster/");
         digester.addRuleSet(new NamingRuleSet("Server/Service/Engine/Host/Context/"));
 
@@ -509,6 +517,9 @@ public class Catalina {
         // Stop the existing server
         s = getServer();
         if (s.getPort()>0) {
+            // 这块关闭逻辑 为了实现优雅关闭  这里也是往sever那个端口socket写入配置的关闭命令
+            // 对应standardServer的await方法里面会去建立以这个端口的socket监听
+            // 一旦发现接收到的命令 与配置的关闭命令一致的话  退出死循环
             try (Socket socket = new Socket(s.getAddress(), s.getPort());
                     OutputStream stream = socket.getOutputStream()) {
                 String shutdown = s.getShutdown();
@@ -686,7 +697,7 @@ public class Catalina {
      * Start a new server instance.
      */
     public void start() {
-
+        log.info("---------------------调用catalina方法开始启动-------------------");
         if (getServer() == null) {
             load();
         }
