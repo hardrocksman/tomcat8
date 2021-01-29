@@ -58,6 +58,8 @@ public abstract class AbstractProcessorLight implements Processor {
                     // buffer) deleting any pipe-lined data. To avoid this,
                     // process it now.
                     // 这里应该是去处理真正的request
+
+                    System.out.println("----------------处理真正的renquest---------------------------------------");
                     state = service(socketWrapper);
                 }
             } else if (status == SocketEvent.OPEN_WRITE) {

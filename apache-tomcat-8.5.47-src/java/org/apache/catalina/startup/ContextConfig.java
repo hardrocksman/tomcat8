@@ -286,6 +286,7 @@ public class ContextConfig implements LifecycleListener {
      */
     @Override
     public void lifecycleEvent(LifecycleEvent event) {
+        log.info("-----------------------触发context的lifecycleEvent: , event:" + event.getType());
 
         // Identify the context we are associated with
         try {
@@ -1098,6 +1099,9 @@ public class ContextConfig implements LifecycleListener {
          *   those in JARs excluded from an absolute ordering) need to be
          *   scanned to check if they match.
          */
+
+        log.info("----------------------开始加载web.xml，context:" + context.getName());
+
         WebXmlParser webXmlParser = new WebXmlParser(context.getXmlNamespaceAware(),
                 context.getXmlValidation(), context.getXmlBlockExternal());
 
@@ -1156,6 +1160,7 @@ public class ContextConfig implements LifecycleListener {
 
             // Step 9. Apply merged web.xml to Context
             if (ok) {
+                log.info("--------------------开始配置servlet中的listener filter------------------");
                 configureContext(webXml);
             }
         } else {
@@ -1240,6 +1245,8 @@ public class ContextConfig implements LifecycleListener {
 
 
     private void configureContext(WebXml webxml) {
+        log.info("----------------------开始关联context的web应用， context:" + context.getName());
+
         // As far as possible, process in alphabetical order so it is easy to
         // check everything is present
         // Some validation depends on correct public ID

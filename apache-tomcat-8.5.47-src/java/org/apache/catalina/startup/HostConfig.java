@@ -416,7 +416,7 @@ public class HostConfig implements LifecycleListener {
      * in our "application root" directory.
      */
     protected void deployApps() {
-
+        log.info("---------------------------开始部署applications--------------------");
         File appBase = host.getAppBaseFile();
         File configBase = host.getConfigBaseFile();
         String[] filteredAppPaths = filterAppPaths(appBase.list());
@@ -814,6 +814,8 @@ public class HostConfig implements LifecycleListener {
         File xml = new File(host.getAppBaseFile(),
                 cn.getBaseName() + "/" + Constants.ApplicationContextXml);
 
+        log.info("------------------------------线程池startstop加载war:" + xml.getName());
+
         File warTracker = new File(host.getAppBaseFile(), cn.getBaseName() + Constants.WarTracker);
 
         boolean xmlInWar = false;
@@ -960,6 +962,7 @@ public class HostConfig implements LifecycleListener {
             }
 
             Class<?> clazz = Class.forName(host.getConfigClass());
+            log.info("----------------context:" + context.getName() + ",add listen:" + host.getConfigClass());
             LifecycleListener listener = (LifecycleListener) clazz.getConstructor().newInstance();
             context.addLifecycleListener(listener);
 
