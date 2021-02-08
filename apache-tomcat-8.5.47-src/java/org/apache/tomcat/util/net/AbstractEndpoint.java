@@ -1071,6 +1071,7 @@ public abstract class AbstractEndpoint<S> {
             if (socketWrapper == null) {
                 return false;
             }
+            // 从`processorCache`里面拿一个`Processor`来处理socket，`Processor`的实现为`SocketProcessor`
             SocketProcessorBase<S> sc = processorCache.pop();
             if (sc == null) {
                 sc = createSocketProcessor(socketWrapper, event);
@@ -1078,6 +1079,7 @@ public abstract class AbstractEndpoint<S> {
                 sc.reset(socketWrapper, event);
             }
             Executor executor = getExecutor();
+
             if (dispatch && executor != null) {
                 executor.execute(sc);
             } else {

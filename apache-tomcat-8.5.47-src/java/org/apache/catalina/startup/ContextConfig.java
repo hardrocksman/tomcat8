@@ -286,7 +286,7 @@ public class ContextConfig implements LifecycleListener {
      */
     @Override
     public void lifecycleEvent(LifecycleEvent event) {
-        log.info("-----------------------触发context的lifecycleEvent: , event:" + event.getType());
+        log.info("-----------------------contextConfig的lifecycleEvent event:" + event.getType() + ",source:" + event.getSource());
 
         // Identify the context we are associated with
         try {
@@ -300,6 +300,7 @@ public class ContextConfig implements LifecycleListener {
         if (event.getType().equals(Lifecycle.CONFIGURE_START_EVENT)) {
             configureStart();
         } else if (event.getType().equals(Lifecycle.BEFORE_START_EVENT)) {
+            // 这里面解压war包
             beforeStart();
         } else if (event.getType().equals(Lifecycle.AFTER_START_EVENT)) {
             // Restore docBase for management tools
@@ -608,6 +609,7 @@ public class ContextConfig implements LifecycleListener {
         if (docBase.toLowerCase(Locale.ENGLISH).endsWith(".war") && !file.isDirectory()) {
             URL war = UriUtil.buildJarUrl(new File(docBase));
             if (unpackWARs) {
+                // 真正解压war包
                 docBase = ExpandWar.expand(host, war, pathName);
                 file = new File(docBase);
                 docBase = file.getCanonicalPath();

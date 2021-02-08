@@ -284,7 +284,7 @@ public class HostConfig implements LifecycleListener {
      */
     @Override
     public void lifecycleEvent(LifecycleEvent event) {
-
+        log.info("-----------hostconfig lifecycleEvent, type:" + event.getType() + ",source:" + event.getSource());
         // Identify the host we are associated with
         try {
             host = (Host) event.getLifecycle();
@@ -810,7 +810,7 @@ public class HostConfig implements LifecycleListener {
      * @param war The WAR file
      */
     protected void deployWAR(ContextName cn, File war) {
-
+        log.info("---------------------------------开始deploy war:" + war.getName() + "--------------------------------------------------");
         File xml = new File(host.getAppBaseFile(),
                 cn.getBaseName() + "/" + Constants.ApplicationContextXml);
 

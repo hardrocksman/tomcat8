@@ -66,7 +66,7 @@ public class EngineConfig
      */
     @Override
     public void lifecycleEvent(LifecycleEvent event) {
-
+        log.info("-----------hostconfig lifecycleEvent, type:" + event.getType() + ",source:" + event.getSource());
         // Identify the engine we are associated with
         try {
             engine = (Engine) event.getLifecycle();
