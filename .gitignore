@@ -34,5 +34,5 @@ build/
 /log/*
 *.settings/
 
-apache-tomcat-8.5.47-src/target/class/*
+apache-tomcat-8.5.47-src/target/classes/*
 catalina_home/logs/*
