@@ -262,6 +262,15 @@ public final class Bootstrap {
     /**
      * Initialize daemon.
      * @throws Exception Fatal initialization error
+     *
+     * 第一步：
+     * 初始化三个类加载器 commonLoader   catalinaLoader  sharedLoader
+     * commonLoader的父加载器应该就是jdk的appClassloader
+     * catalinaLoader的父加载器是commonLoader
+     * sharedLoader的父加载器是catalinaLoader
+     *
+     * 第二步
+     * 反射调用org.apache.catalina.startup.Catalina的setParentClassLoader方法
      */
     public void init() throws Exception {
 
@@ -285,13 +294,14 @@ public final class Bootstrap {
         Class<?> paramTypes[] = new Class[1];
         paramTypes[0] = Class.forName("java.lang.ClassLoader");
         Object paramValues[] = new Object[1];
+
+        // 参数用的sharedLoader
         paramValues[0] = sharedLoader;
         Method method =
             startupInstance.getClass().getMethod(methodName, paramTypes);
         method.invoke(startupInstance, paramValues);
 
         catalinaDaemon = startupInstance;
-
     }
 
 
@@ -468,7 +478,11 @@ public final class Bootstrap {
      * @param args Command line arguments to be processed
      */
     public static void main(String args[]) {
-        log.info("启动");
+        String argsStr = "";
+        for (String str : args) {
+            argsStr = argsStr.concat(str).concat(",");
+        }
+        log.info("main方法启动。。。。。。。。，参数：" + argsStr);
         if (daemon == null) {
             // Don't set daemon until init() has completed
             Bootstrap bootstrap = new Bootstrap();
@@ -501,7 +515,8 @@ public final class Bootstrap {
                 args[args.length - 1] = "stop";
                 daemon.stop();
             } else if (command.equals("start")) {
-                log.info("先加把锁，");
+                log.info("反射调用Catalina的setAwait方法将await标识置为true，主要还是加了标识而已");
+                // 这里也没有加什么特殊的加锁处理 纯粹就是加了个标识
                 daemon.setAwait(true);
                 daemon.load(args);
                 daemon.start();

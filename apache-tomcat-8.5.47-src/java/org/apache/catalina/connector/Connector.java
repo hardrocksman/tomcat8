@@ -586,18 +586,18 @@ public class Connector extends LifecycleMBeanBase  {
         log.info("aprConnector:[{}]" + aprConnector);
         if ("HTTP/1.1".equals(protocol) || protocol == null) {
             if (aprConnector) {
-                log.info("org.apache.coyote.http11.Http11AprProtocol");
+                log.info("选择的协议处理类：org.apache.coyote.http11.Http11AprProtocol");
                 setProtocolHandlerClassName("org.apache.coyote.http11.Http11AprProtocol");
             } else {
-                log.info("org.apache.coyote.http11.Http11NioProtocol");
+                log.info("选择的协议处理类：org.apache.coyote.http11.Http11NioProtocol");
                 setProtocolHandlerClassName("org.apache.coyote.http11.Http11NioProtocol");
             }
         } else if ("AJP/1.3".equals(protocol)) {
             if (aprConnector) {
-                log.info("org.apache.coyote.ajp.AjpAprProtocol");
+                log.info("选择的协议处理类：org.apache.coyote.ajp.AjpAprProtocol");
                 setProtocolHandlerClassName("org.apache.coyote.ajp.AjpAprProtocol");
             } else {
-                log.info("org.apache.coyote.ajp.AjpNioProtocol");
+                log.info("选择的协议处理类：org.apache.coyote.ajp.AjpNioProtocol");
                 setProtocolHandlerClassName("org.apache.coyote.ajp.AjpNioProtocol");
             }
         } else {

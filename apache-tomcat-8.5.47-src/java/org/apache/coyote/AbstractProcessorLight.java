@@ -59,7 +59,7 @@ public abstract class AbstractProcessorLight implements Processor {
                     // process it now.
                     // 这里应该是去处理真正的request
 
-                    System.out.println("----------------处理真正的renquest---------------------------------------");
+                    System.out.println("----------------处理真正的request---------------------------------------");
                     state = service(socketWrapper);
                 }
             } else if (status == SocketEvent.OPEN_WRITE) {

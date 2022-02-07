@@ -1277,6 +1277,9 @@ public class ContextConfig implements LifecycleListener {
         for (ErrorPage errorPage : webxml.getErrorPages().values()) {
             context.addErrorPage(errorPage);
         }
+
+
+        // filter相关信息配置
         for (FilterDef filter : webxml.getFilters().values()) {
             if (filter.getAsyncSupported() == null) {
                 filter.setAsyncSupported("false");
@@ -1287,6 +1290,7 @@ public class ContextConfig implements LifecycleListener {
             context.addFilterMap(filterMap);
         }
         context.setJspConfigDescriptor(webxml.getJspConfigDescriptor());
+        // listener相关信息配置
         for (String listener : webxml.getListeners()) {
             context.addApplicationListener(listener);
         }
@@ -1334,6 +1338,8 @@ public class ContextConfig implements LifecycleListener {
         for (ContextService service : webxml.getServiceRefs().values()) {
             context.getNamingResources().addService(service);
         }
+
+        // servlet相关信息配置
         for (ServletDef servlet : webxml.getServlets().values()) {
             Wrapper wrapper = context.createWrapper();
             // Description is ignored

@@ -548,7 +548,7 @@ public class Catalina {
      * Start a new server instance.
      */
     public void load() {
-        log.info("catalina load");
+        log.info("开始加载catalina的load方法");
         if (loaded) {
             return;
         }
